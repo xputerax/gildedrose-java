@@ -11,6 +11,7 @@ public class ItemUpdaterTest {
     SulfurasUpdater sulfurasUpdater;
     BackstagePassUpdater backstagePassUpdater;
     NormalItemUpdater normalItemUpdater;
+    ConjuredItemUpdater conjuredItemUpdater;
 
     @BeforeEach
     public void setAgedBrieUpdater() {
@@ -18,6 +19,7 @@ public class ItemUpdaterTest {
         this.sulfurasUpdater = new SulfurasUpdater();
         this.backstagePassUpdater = new BackstagePassUpdater();
         this.normalItemUpdater = new NormalItemUpdater();
+        this.conjuredItemUpdater = new ConjuredItemUpdater();
     }
 
     @Test
@@ -128,5 +130,21 @@ public class ItemUpdaterTest {
         assertEquals(10 - 1, item.quality);
         this.normalItemUpdater.update(item);
         assertEquals(10 - 1 - 2, item.quality);
+    }
+
+    @Test
+    void conjuredItemUpdater_shouldDecreaseNonExpiredItemQualityTwiceAsFast() {
+        Item item = new Item("Conjured", 10, 10);
+        this.conjuredItemUpdater.update(item);
+        assertEquals(10 - 1, item.sellIn);
+        assertEquals(10 - 2, item.quality);
+    }
+
+    @Test
+    void conjuredItemUpdater_shouldDecreaseExpiredItemQualityQuadAsFast() {
+        // TODO: faham balik requirement dia
+        Item item = new Item("Conjured", 0, 10);
+        this.conjuredItemUpdater.update(item);
+        assertEquals(10 - 2 - 2, item.quality);
     }
 }

@@ -159,4 +159,26 @@ class GildedRoseTest {
         assertEquals(10 - 1 - 1, normalItem.sellIn);
         assertEquals(0, normalItem.quality);
     }
+
+    @Test
+    void conjuredItemUpdater_shouldDecreaseNonExpiredItemQualityTwiceAsFast() {
+        Item item = new Item("Conjured", 10, 10);
+        GildedRose gildedRose = new GildedRose(new Item[] {
+            item
+        });
+        gildedRose.updateQuality();
+        assertEquals(10 - 1, item.sellIn);
+        assertEquals(10 - 2, item.quality);
+    }
+
+    @Test
+    void conjuredItemUpdater_shouldDecreaseExpiredItemQualityQuadAsFast() {
+        // TODO: faham balik requirement dia
+        Item item = new Item("Conjured", 0, 10);
+        GildedRose gildedRose = new GildedRose(new Item[] {
+            item
+        });
+        gildedRose.updateQuality();
+        assertEquals(10 - 2 - 2, item.quality);
+    }
 }

@@ -6,6 +6,7 @@ class GildedRose {
     SulfurasUpdater sulfurasUpdater;
     BackstagePassUpdater backstagePassUpdater;
     NormalItemUpdater normalItemUpdater;
+    ConjuredItemUpdater conjuredItemUpdater;
 
     public GildedRose(Item[] items) {
         this.items = items;
@@ -13,6 +14,7 @@ class GildedRose {
         this.sulfurasUpdater = new SulfurasUpdater();
         this.backstagePassUpdater = new BackstagePassUpdater();
         this.normalItemUpdater = new NormalItemUpdater();
+        this.conjuredItemUpdater = new ConjuredItemUpdater();
     }
 
     public void updateQuality() {
@@ -23,6 +25,8 @@ class GildedRose {
                 this.sulfurasUpdater.update(item);
             } else if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
                 this.backstagePassUpdater.update(item);
+            } else if (item.name.equals("Conjured")) {
+                this.conjuredItemUpdater.update(item);
             } else {
                 this.normalItemUpdater.update(item);
             }
